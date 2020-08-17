@@ -1,6 +1,13 @@
-from aiogram import executor
-from app.misc import dp
+from aiogram import executor, Dispatcher, types
+from app.misc import dp, bot
 import app.handlers  # noqa: F401
 
+
+async def start(dispatcher: Dispatcher):
+    await bot.set_my_commands([
+        types.BotCommand(command="/start", description="Начать"),
+        types.BotCommand(command="/set", description="Добавить канал"),
+    ])
+
 if __name__ == "__main__":
-    executor.start_polling(dispatcher=dp, skip_updates=True)
+    executor.start_polling(dispatcher=dp, skip_updates=True, on_startup=start)
