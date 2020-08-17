@@ -9,4 +9,4 @@ async def start(message: types.Message):
                       first_name=message.from_user.first_name,
                       username=message.from_user.username)
 
-    await message.answer("Здравсвуйте!")
+    await message.answer("Hello!")

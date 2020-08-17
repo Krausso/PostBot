@@ -42,6 +42,7 @@ class User(Model):
 
 class Chanel(Model):
     id = PrimaryKeyField(null=False, unique=True)
+    channel_name = CharField(null=False, max_length=255)
     channel_id = IntegerField(null=False)
     owner = ForeignKeyField(User, related_name='owner', to_field='id', on_delete='cascade', on_update='cascade')
     created = DateTimeField(default=datetime.now())
@@ -49,9 +50,9 @@ class Chanel(Model):
     class Meta:
         database = db
 
-    def add_channel(self, user_id, channel_id):
+    def add_channel(self, user_id, channel_id, name):
         user = User.get(User.user_id == user_id)
-        self.create(channel_id=channel_id, owner=user)
+        self.create(channel_id=channel_id, owner=user, channel_name=name)
         return True
 
     def del_channel(self, channel_id):
