@@ -9,7 +9,10 @@ from app.utils import Main
 
 @dp.message_handler(commands="new", state="*")
 async def _(message: Message):
-    await message.answer("Choose your channel", reply_markup=get_channel_key(message.from_user.id))
+    await message.answer(
+        "Choose your channel",
+        reply_markup=get_channel_key(message.from_user.id)
+    )
     await CreatePost.choose_channel.set()
 
 
@@ -31,6 +34,3 @@ async def _(message: Message, state: FSMContext):
         await message.answer("I`m not admin in your channel!")
     else:
         await Main.wait_menu.set()
-
-
-
