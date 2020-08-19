@@ -21,7 +21,10 @@ async def _(message):
         pass
 
     await message.answer(
-        message.from_user.id, reply_markup=check_joined_user()
+        f"""Hello, {message.from_user.first_name}!
+Please, press the button below to prove that you are not a bot.
+Otherwise, you gonna be kicked""",
+        reply_markup=check_joined_user()
     )
     await sleep(60)
     try:

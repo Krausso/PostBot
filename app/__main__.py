@@ -5,8 +5,8 @@ import app.handlers  # noqa: F401
 
 async def start(dispatcher: Dispatcher):
     await bot.set_my_commands([
-        types.BotCommand(command="/start", description="Reset"),
-        types.BotCommand(command="/set", description="Add channel"),
+        types.BotCommand(command="/start", description="Begin conversation"),
+        types.BotCommand(command="/set", description="Add new channel"),
         types.BotCommand(command="/new", description="Create new post"),
     ])
 

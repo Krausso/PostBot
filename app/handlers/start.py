@@ -10,4 +10,9 @@ async def start(message: types.Message):
                       first_name=message.from_user.first_name,
                       username=message.from_user.username)
 
-    await message.answer("Hello!")
+    await message.answer(
+        """Hey, {message.from_user.first_name}!
+Bot is created to add buttons for every
+message, that has been posted into channel
+which you have specified before.
+Enjoy!)""")

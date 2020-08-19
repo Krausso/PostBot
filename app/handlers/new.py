@@ -5,13 +5,13 @@ from aiogram.utils.exceptions import Unauthorized
 from app.misc import dp, bot
 from app.utils import CreatePost
 from app.utils import Main
-from app.utils.keyboard import get_channel_key
+from app.utils.keyboard import get_channel_key, get_vote_key
 
 
 @dp.message_handler(commands="new", state="*")
 async def _(message: Message):
     await message.answer(
-        "Choose your channel",
+        "Please, choose the channel you need",
         reply_markup=get_channel_key(message.from_user.id)
     )
     await CreatePost.choose_channel.set()
@@ -30,8 +30,11 @@ async def _(call: CallbackQuery, state: FSMContext):
 async def _(message: Message, state: FSMContext):
     data = await state.get_data()
     try:
-        await message.send_copy(chat_id=data["chosen_channel"], reply_markup=get_vote_key())
+        await message.send_copy(
+            chat_id=data["chosen_channel"],
+            reply_markup=get_vote_key()
+        )
     except Unauthorized:
-        await message.answer("I`m not admin in your channel!")
+        await message.answer("#FixIt\nI'm not admin in your channel!")
     else:
         await Main.wait_menu.set()
