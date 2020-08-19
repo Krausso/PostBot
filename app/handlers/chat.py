@@ -1,23 +1,33 @@
-from aiogram.types import ContentTypes, CallbackQuery
+from aiogram.utils.exceptions import (
+    MethodIsNotAvailable, MessageToDeleteNotFound
+)
+from aiogram.types import ContentTypes, CallbackQuery, ChatPermissions
+from asyncio import sleep
 
 from app.utils import check_joined_user
 from app.misc import dp, bot
-from time import sleep
 
 
 @dp.message_handler(content_types=ContentTypes.NEW_CHAT_MEMBERS)
 async def _(message):
     await bot.delete_message(message.chat.id, message.message_id)
+
+    try:
+        await message.chat.restrict(
+            message.from_user.id,
+            permissions=ChatPermissions(can_send_messages=False)
+        )
+    except MethodIsNotAvailable:
+        pass
+
     await message.answer(
         message.from_user.id, reply_markup=check_joined_user()
     )
-
-    sleep(60)
-
+    await sleep(60)
     try:
         await bot.delete_message(message.chat.id, message.message_id+1)
-    except Exception as e:
-        print(e)
+    except MessageToDeleteNotFound:
+        pass
     else:
         await bot.kick_chat_member(message.chat.id, message.from_user.id)
 
@@ -27,7 +37,14 @@ async def _(message):
     await bot.delete_message(message.chat.id, message.message_id)
 
 
-@dp.callback_query_handler(lambda call: call.data, state="*")
-async def _(call: CallbackQuery):
-    print("hey")
-    await bot.delete_message(call.message.chat.id, call.message.message_id)
+@dp.callback_query_handler(lambda c: c.data == "joined_is_user", state="*")
+async def _(c: CallbackQuery):
+    await bot.delete_message(c.message.chat.id, c.message.message_id)
+
+    try:
+        await c.message.chat.restrict(
+            c.message.from_user.id,
+            permissions=ChatPermissions(can_send_messages=True)
+        )
+    except MethodIsNotAvailable:
+        pass
