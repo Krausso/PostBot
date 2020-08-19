@@ -1,10 +1,11 @@
-from aiogram.types import Message, ContentType, CallbackQuery
-from app.misc import dp, bot
-from app.utils.keyboard import get_channel_key
-from app.utils import CreatePost
 from aiogram.dispatcher import FSMContext
+from aiogram.types import Message, ContentType, CallbackQuery
 from aiogram.utils.exceptions import Unauthorized
+
+from app.misc import dp, bot
+from app.utils import CreatePost
 from app.utils import Main
+from app.utils.keyboard import get_channel_key
 
 
 @dp.message_handler(commands="new", state="*")
@@ -29,7 +30,7 @@ async def _(call: CallbackQuery, state: FSMContext):
 async def _(message: Message, state: FSMContext):
     data = await state.get_data()
     try:
-        await message.send_copy(chat_id=data["chosen_channel"])
+        await message.send_copy(chat_id=data["chosen_channel"], reply_markup=get_vote_key())
     except Unauthorized:
         await message.answer("I`m not admin in your channel!")
     else:

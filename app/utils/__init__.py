@@ -1,4 +1,4 @@
 # flake8: noqa
-from . import keyboards
+from . import keyboard
 from .fsm import *
 from .keyboard import *

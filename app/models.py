@@ -1,6 +1,7 @@
 from peewee import *
 from app.config import MAIN_DIR
 from datetime import datetime
+from collections import defaultdict
 
 db = SqliteDatabase(f"{MAIN_DIR}/db.sqlite3")
 
