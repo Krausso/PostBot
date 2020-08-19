@@ -3,7 +3,7 @@
 
  Bot is created to beautify every message in your channel with unique buttons.
  First, you should add bot to the channel, so, afterwards you have to forward a channel's message to the bot.
- So, that's all. Bot is almost set up.
+ So, that's all. Bot is almost set up.\
  **P.S.** Bot may be added to a group too, so it gonna be filtered of spammers and another bots)
 
  #### Tasks
