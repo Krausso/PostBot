@@ -1,7 +1,9 @@
 from asyncio import sleep
 
 from aiogram.types import ContentTypes, CallbackQuery, ChatPermissions
-from aiogram.utils.exceptions import MethodIsNotAvailable, MessageToDeleteNotFound
+from aiogram.utils.exceptions import (
+    MethodIsNotAvailable, MessageToDeleteNotFound
+)
 
 from app.misc import dp, bot
 from app.utils import check_joined_user
