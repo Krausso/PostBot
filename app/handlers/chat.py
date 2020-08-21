@@ -1,11 +1,10 @@
-from aiogram.utils.exceptions import (
-    MethodIsNotAvailable, MessageToDeleteNotFound
-)
-from aiogram.types import ContentTypes, CallbackQuery, ChatPermissions
 from asyncio import sleep
 
-from app.utils import check_joined_user
+from aiogram.types import ContentTypes, CallbackQuery, ChatPermissions
+from aiogram.utils.exceptions import MethodIsNotAvailable, MessageToDeleteNotFound
+
 from app.misc import dp, bot
+from app.utils import check_joined_user
 
 
 @dp.message_handler(content_types=ContentTypes.NEW_CHAT_MEMBERS)
@@ -43,7 +42,6 @@ async def _(message):
 @dp.callback_query_handler(lambda c: c.data == "joined_is_user", state="*")
 async def _(c: CallbackQuery):
     await bot.delete_message(c.message.chat.id, c.message.message_id)
-
     try:
         await c.message.chat.restrict(
             c.message.from_user.id,

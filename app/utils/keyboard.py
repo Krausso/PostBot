@@ -1,19 +1,7 @@
-from app.misc import channel, user
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from app.models import User, Chanel
+from aiogram.utils.callback_data import CallbackData
 
-
-def get_channel_key(user_id):
-    key = InlineKeyboardMarkup()
-    owner = user.get(User.user_id == user_id)
-    for item in channel.select().where(Chanel.owner == owner.id):
-        key.add(
-            InlineKeyboardButton(
-                text=item.channel_name,
-                callback_data=item.channel_id
-            )
-        )
-    return key
+vote = CallbackData("vote", "message_id", "action")
 
 
 def check_joined_user():
@@ -25,3 +13,13 @@ def check_joined_user():
         )
     )
     return keyboard
+
+
+def get_vote_key(message_id, like=0, dislike=0):
+    return InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(f"🔥 {like}",
+                              callback_data=vote.new(message_id=message_id, action="like")),
+         InlineKeyboardButton(f"👎 {dislike}",
+                              callback_data=vote.new(message_id=message_id, action="dislike"))
+         ]
+    ])

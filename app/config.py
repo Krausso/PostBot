@@ -14,7 +14,6 @@ except FileNotFoundError:
     exit()
 else:
     BOT_TOKEN = config["BOT_TOKEN"]
-    DB_HOST = config["DB_HOST"]
-    DB_USER = config["DB_USER"]
-    DB_PASS = config["DB_PASS"]
-    DB_PORT = config["DB_PORT"]
+    REDIS_HOST = config["REDIS_HOST"]
+    REDIS_PASS = config["REDIS_PASS"]
+    REDIS_PORT = config["REDIS_PORT"]
