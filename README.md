@@ -1,5 +1,5 @@
  # PostBot
- Telegram address - **@markPost_bot**
+ Telegram address - **@smallSenior_bot**
 
  Bot is created to beautify every message in your channel with unique buttons.
  First, you should add bot to the channel, so, afterwards you have to forward a channel's message to the bot.
